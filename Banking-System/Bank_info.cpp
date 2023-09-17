@@ -31,17 +31,13 @@ void Bank_info::accountAccess(int acc,int pass)
 		{
 			cout << "Did not found it!";
 		}
-		//temp_account = 0;
-		//temp_acc_balance = 0;
-
 	}
 	
 }
 void Bank_info::BankMenu(int acc, double balance)
 {
 	char choice;
-	/*cout << "hello there account: " << acc << endl;
-	cout << "this is your current balance: " << balance<<endl;*/
+	
 
 	cout << "[1] - Balance Inquiry" << endl << "[2] - Withdraw" << endl<< "[3] Logout"<<endl;
 	cin >> choice;
@@ -49,7 +45,10 @@ void Bank_info::BankMenu(int acc, double balance)
 	{
 	case '1':
 	{
-		cout << "Your Current Balance: " << balance << endl;
+		
+		cout << "Your Balance: " << balance - withdrawal_amount<<endl;
+
+		 // updation of balance doesnt happen because we still get the original balance
 		/*
 		* Fixed the problem where the current balance is 0 which should be 1000 - done
 		* balance doesnt update
@@ -75,8 +74,7 @@ void Bank_info::BankMenu(int acc, double balance)
 }
 void Bank_info::Withdrawal(double balance)
 {
-	
-	//double temp_balance = balance;
+	 double temp_balance = balance;
 	cout << "Enter withdrawal amount: ";
 	cin >> withdrawal_amount;
 	if (withdrawal_amount > balance)
@@ -85,9 +83,8 @@ void Bank_info::Withdrawal(double balance)
 	}
 	else
 	{
-		newBalance += balance - withdrawal_amount;
+		newBalance = balance - withdrawal_amount; //the new balance gets the update of the money
 		cout << "Your new balance: " << newBalance <<endl;
-	}
-	
-	
+		
+	}	
 }
