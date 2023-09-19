@@ -7,8 +7,6 @@ void Bank_info::accountAccess(int acc,int pass)
 {
 	int account_length = sizeof(accounts) / sizeof(accounts[0]);
 	int pass_length = sizeof(password) / sizeof(password[0]);
-	//string& temp_result;
-	string* result = nullptr; // this does nothing (yet i guess)
 
 	for (int i = 0; i != account_length; i++)
 	{
@@ -46,13 +44,7 @@ void Bank_info::BankMenu(int acc, double balance)
 	case '1':
 	{
 		
-		cout << "Your Balance: " << balance - withdrawal_amount<<endl;
-
-		 // updation of balance doesnt happen because we still get the original balance
-		/*
-		* Fixed the problem where the current balance is 0 which should be 1000 - done
-		* balance doesnt update
-		*/
+		checkBalance(balance, withdrawal_amount, newBalance);
 	}
 	break;
 	case '2':
@@ -68,23 +60,54 @@ void Bank_info::BankMenu(int acc, double balance)
 	default:
 	{
 		cout << "Invalid Key!" << endl;
-	}
-		break;
+	}break;
 	}
 }
 void Bank_info::Withdrawal(double balance)
 {
-	 double temp_balance = balance;
 	cout << "Enter withdrawal amount: ";
 	cin >> withdrawal_amount;
-	if (withdrawal_amount > balance)
+
+	if (newBalance != 0)//on the first attemt this wont work
 	{
-		cout << "Insufficient funds!" << endl;
+		newBalance -= withdrawal_amount;
+		cout << "Your New Balance(if): " << newBalance<<endl;
+	}
+	
+	}
+	//if new balance is not equal to 0 else if would not work anymore
+	else if(withdrawal_amount > balance)
+	{
+		cout << "Insufficient Funds!" << endl;
+		withdrawal_amount = 0;
+		break;
+		if (withdrawal_amount > newBalance)
+		{
+			cout << "Insufficient newFunds!" << endl;
+			withdrawal_amount = 0;
+		}
+	}
+	
+	else
+	{
+		balance -= withdrawal_amount;
+		cout << "Your New Balance (else): " << balance;
+		newBalance = balance;
+	}
+}
+
+void Bank_info::checkBalance(double balance, double withdrawable,double newBalance)
+{
+	double holdsZero = 0;
+
+	if (withdrawable == holdsZero)//this shall only work in the first attempt since we havent done any withdrawal yet
+	{
+		cout << "Your Balance(if): "<<balance;
 	}
 	else
 	{
-		newBalance = balance - withdrawal_amount; //the new balance gets the update of the money
-		cout << "Your new balance: " << newBalance <<endl;
-		
-	}	
+		cout << "Your Balance:(else) " << newBalance;//this will be always true in the first attempt
+	}
+	
+	
 }
