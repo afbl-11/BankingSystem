@@ -68,26 +68,42 @@ void Bank_info::Withdrawal(double balance)
 	cout << "Enter withdrawal amount: ";
 	cin >> withdrawal_amount;
 
-	if (newBalance != 0)//on the first attemt this wont work
+	if (withdrawal_amount > balance || withdrawal_amount > newBalance)
 	{
-		newBalance -= withdrawal_amount;
-		cout << "Your New Balance(if): " << newBalance<<endl;
-	}
-	
-	}
-	//if new balance is not equal to 0 else if would not work anymore
-	else if(withdrawal_amount > balance)
-	{
-		cout << "Insufficient Funds!" << endl;
-		withdrawal_amount = 0;
-		break;
-		if (withdrawal_amount > newBalance)
+		cout << "Insufficient funds!" << endl;
+		if (newBalance != 0)
 		{
-			cout << "Insufficient newFunds!" << endl;
-			withdrawal_amount = 0;
+			newBalance -= withdrawal_amount;
+			cout << "Your New Balance(if): " << newBalance<<endl;
 		}
+		else if (withdrawal_amount > balance)
+		{
+			cout << "Insufficient Funds!" << endl;
+			withdrawal_amount = 0;
+			if (withdrawal_amount > newBalance)
+			{
+				cout << "Insufficient newFunds!" << endl;
+				withdrawal_amount = 0;
+			}
+		}
+		
 	}
-	
+	//if (newBalance != 0)//on the first attemt this wont work
+	//{
+	//	newBalance -= withdrawal_amount;
+	//	cout << "Your New Balance(if): " << newBalance<<endl;
+	//}
+	////if new balance is not equal to 0 else if would not work anymore
+	//else if(withdrawal_amount > balance)
+	//{
+	//	cout << "Insufficient Funds!" << endl;
+	//	withdrawal_amount = 0;
+	//	if (withdrawal_amount > newBalance)
+	//	{
+	//		cout << "Insufficient newFunds!" << endl;
+	//		withdrawal_amount = 0;
+	//	}
+	//}
 	else
 	{
 		balance -= withdrawal_amount;
